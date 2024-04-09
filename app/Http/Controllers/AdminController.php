@@ -39,7 +39,8 @@ class AdminController extends Controller
         return view('admin.admin_profile_view', compact('profileData'));
     } // End Method
 
-    public function AdminProfileStore(Request $request){
+    public function AdminProfileStore(Request $request)
+    {
 
         $id = Auth::user()->id;
         $data = User::find($id);
@@ -48,18 +49,22 @@ class AdminController extends Controller
         $data->phone = $request->phone;
         $data->address = $request->address;
 
-        if($request->file('photo')){
+        if ($request->file('photo')) {
             $file = $request->file('photo');
-            $filename = date('YmdHi'). '-' .$file->getClientOriginalName();
-            $file->move(public_path('upload/admin_images'),$filename);
+            @unlink(public_path('upload/admin_images/' . $data->photo));
+            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $file->move(public_path('upload/admin_images'), $filename);
             $data['photo'] = $filename;
-
         }
         $data->save();
 
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Admin Profile Updated Successfully',
+            'alert-type' => 'success'
+        );
 
-    }// End Method
+        return redirect()->back()->with($notification);
+    } // End Method
 
 
 
