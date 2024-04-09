@@ -13,6 +13,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'UserProfile'])->name('user.profile');
+    Route::post('/profile/store', [UserController::class, 'UserStore'])->name('profile.store');
 });
 
 require __DIR__ . '/auth.php';
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
+
 }); // End Admin Group Middleware
 
 
