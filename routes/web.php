@@ -12,15 +12,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [UserController::class, 'UserProfile'])->name('user.profile');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Admin Group Middleware
-Route::middleware(['auth','roles:admin'])->group(function(){
+Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
@@ -28,10 +26,7 @@ Route::middleware(['auth','roles:admin'])->group(function(){
     Route::post('/admin/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
-
-
 }); // End Admin Group Middleware
 
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
-
