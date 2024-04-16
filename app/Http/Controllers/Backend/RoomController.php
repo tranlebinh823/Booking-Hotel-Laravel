@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Facility;
 use App\Models\MultiImage;
+use App\Models\RoomNumber;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
-use App\Models\RoomNumber;
+
 class RoomController extends Controller
 {
     public function EditRoom($id){
@@ -136,7 +137,6 @@ class RoomController extends Controller
 
     }//End Method
 
-
     public function StoreRoomNumber(Request $request,$id){
 
         $data = new RoomNumber();
@@ -157,5 +157,43 @@ class RoomController extends Controller
 
 
 
+    public function EditRoomNumber($id){
+
+        $editroomno = RoomNumber::find($id);
+        return view('backend.allroom.rooms.edit_room_no',compact('editroomno'));
+
+    }//End Method
+
+    public function UpdateRoomNumber(Request $request, $id){
+
+        $data = RoomNumber::find($id);
+        $data->room_no = $request->room_no;
+        $data->status = $request->status;
+        $data->save();
+
+       $notification = array(
+            'message' => 'Room Number Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('room.type.list')->with($notification);
+
+    }//End Method
+
+
+    public function DeleteRoomNumber($id){
+
+        RoomNumber::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Room Number Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('room.type.list')->with($notification);
+
+    }//End Method
+
 
 }
+ 
