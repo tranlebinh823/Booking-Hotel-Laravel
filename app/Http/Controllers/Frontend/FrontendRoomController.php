@@ -11,10 +11,16 @@ use App\Models\Room;
 
 class FrontendRoomController extends Controller
 {
-    public function AllFrontendRoomList(){
+    public function AllFrontendRoomList()
+    {
 
         $rooms = Room::latest()->get();
-        return view('frontend.room.all_rooms',compact('rooms'));
+        return view('frontend.room.all_rooms', compact('rooms'));
     } // End Method
+    public function RoomDetailsPage($id)
+    {
 
+        $roomdetails = Room::find($id);
+        return view('frontend.room.room_details', compact('roomdetails'));
+    } // End Method 
 }
