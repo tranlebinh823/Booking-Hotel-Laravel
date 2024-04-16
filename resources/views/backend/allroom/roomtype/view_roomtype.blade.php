@@ -7,16 +7,22 @@
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
-
-                        <a href="{{ route('add.room.type') }}" class="btn btn-outline-primary px-5 radius-30"> Add Room Type
-                        </a>
+                        <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Room Type List</li>
                     </ol>
                 </nav>
             </div>
+            <div class="ms-auto">
+                <div class="btn-group">
+                    <a href="{{ route('add.room.type') }}" class="btn btn-primary px-5"> Add Room Type </a>
 
+                </div>
+            </div>
         </div>
         <!--end breadcrumb-->
-        <h6 class="mb-0 text-uppercase">Room Type List </h6>
+
+
         <hr />
         <div class="card">
             <div class="card-body">
@@ -43,11 +49,13 @@
                                             alt="" style="width: 50px; height:30px;"> </td>
                                     <td>{{ $item->name }}</td>
                                     <td>
-                                        @foreach ($rooms as $roo)
-                                        <a href="{{ route('edit.room',$roo->id) }}" class="btn btn-warning px-3 radius-30"> Edit</a>
-                                        <a href="{{ route('delete.room',$roo->id) }}" class="btn btn-danger px-3 radius-30" id="delete"> Delete</a>
-                                        @endforeach
 
+                                        @foreach ($rooms as $roo)
+                                            <a href="{{ route('edit.room', $roo->id) }}"
+                                                class="btn btn-warning px-3 radius-30"> Edit</a>
+                                            <a href="{{ route('delete.room', $roo->id) }}"
+                                                class="btn btn-danger px-3 radius-30" id="delete"> Delete</a>
+                                        @endforeach
                                     </td>
                                 </tr>
                             @endforeach
