@@ -8,27 +8,30 @@ use App\Models\RoomType;
 use App\Models\BookArea;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
+use App\Models\Room;
 
 class RoomTypeController extends Controller
 {
-    public function RoomTypeList()
-    {
+    public function RoomTypeList(){
 
-        $allData = RoomType::orderBy('id', 'desc')->get();
-        return view('backend.allroom.roomtype.view_roomtype', compact('allData'));
-    } // End Method
+        $allData = RoomType::orderBy('id','desc')->get();
+        return view('backend.allroom.roomtype.view_roomtype',compact('allData'));
 
-    public function AddRoomType()
-    {
+    }// End Method
+
+    public function AddRoomType(){
         return view('backend.allroom.roomtype.add_roomtype');
-    } // End Method
+    }// End Method
 
-    public function RoomTypeStore(Request $request)
-    {
+    public function RoomTypeStore(Request $request){
 
-        RoomType::insert([
+        $roomtype_id =  RoomType::insertGetId([
             'name' => $request->name,
             'created_at' => Carbon::now(),
+        ]);
+
+        Room::insert([
+            'roomtype_id' => $roomtype_id,
         ]);
 
         $notification = array(
@@ -37,9 +40,9 @@ class RoomTypeController extends Controller
         );
 
         return redirect()->route('room.type.list')->with($notification);
-    } // End Method 
 
-
+    }// End Method
 
 
 }
+ 
