@@ -7,6 +7,7 @@ use App\Models\Team;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
+
 class TeamController extends Controller
 {
     public function AllTeam()
@@ -43,5 +44,77 @@ class TeamController extends Controller
 
         return redirect()->route('all.team')->with($notification);
     } // End Method
+    public function EditTeam($id)
+    {
+
+        $team = Team::findOrFail($id);
+        return view('backend.team.edit_team', compact('team'));
+    } // End Method
+
+
+    public function UpdateTeam(Request $request)
+    {
+
+        $team_id = $request->id;
+
+        if ($request->file('image')) {
+
+            $image = $request->file('image');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(550, 670)->save('upload/team/' . $name_gen);
+            $save_url = 'upload/team/' . $name_gen;
+
+            Team::findOrFail($team_id)->update([
+
+                'name' => $request->name,
+                'postion' => $request->postion,
+                'facebook' => $request->facebook,
+                'image' => $save_url,
+                'created_at' => Carbon::now(),
+            ]);
+
+            $notification = array(
+                'message' => 'Team Updated With Image Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.team')->with($notification);
+        } else {
+
+            Team::findOrFail($team_id)->update([
+
+                'name' => $request->name,
+                'postion' => $request->postion,
+                'facebook' => $request->facebook,
+                'created_at' => Carbon::now(),
+            ]);
+
+            $notification = array(
+                'message' => 'Team Updated Without Image Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.team')->with($notification);
+        } // End Eles
+
+
+    } // End Method
+    public function DeleteTeam($id)
+    {
+
+        $item = Team::findOrFail($id);
+        $img = $item->image;
+        unlink($img);
+
+        Team::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Team Image Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }   // End Method
+
 
 }
