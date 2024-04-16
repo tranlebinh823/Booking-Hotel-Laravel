@@ -105,6 +105,7 @@
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
+
                                 <p>Session Value : {{ json_encode(session('book_date')) }}</p>
 
 
@@ -127,12 +128,13 @@
                                     <hr>
 
                                     <div style="display: flex">
-                                        <img style="height:100px; width:120px;object-fit: cover" src=" "
+                                        <img style="height:100px; width:120px;object-fit: cover"
+                                            src="{{ !empty($room->image) ? url('upload/roomimg/' . $room->image) : url('upload/no_image.jpg') }}"
                                             alt="Images" alt="Images">
                                         <div style="padding-left: 10px;">
-                                            <a href=" " style="font-size: 20px; color: #595959;font-weight: bold">Room
-                                                Name</a>
-                                            <p><b>120 / Night</b></p>
+                                            <a href=" "
+                                                style="font-size: 20px; color: #595959;font-weight: bold">{{ @$room->type->name }}</a>
+                                            <p><b>{{ $room->price }} / Night</b></p>
                                         </div>
 
                                     </div>
