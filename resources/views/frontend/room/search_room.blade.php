@@ -34,36 +34,46 @@
                             ->where('rooms_id', $item->id)
                             ->get()
                             ->toArray();
+
                         $total_book_room = array_sum(array_column($bookings, 'assign_rooms_count'));
+
                         $av_room = @$item->room_numbers_count - $total_book_room;
+
                     @endphp
 
 
 
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="room-card">
-                            <a href="{{ url('room/details/' . $item->id) }}">
-                                <img src="{{ asset('upload/roomimg/' . $item->image) }}" alt="Images"
-                                    style="width: 550px; height:300px;">
-                            </a>
-                            <div class="content">
-                                <h6><a href="{{ url('room/details/' . $item->id) }}">{{ $item['type']['name'] }}</a></h6>
-                                <ul>
-                                    <li class="text-color">${{ $item->price }}</li>
-                                    <li class="text-color">Per Night</li>
-                                </ul>
-                                <div class="rating text-color">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star-half'></i>
+                    @if ($av_room > 0 && old('persion') <= $item->total_adult)
+                        <div class="col-lg-4 col-md-6">
+                            <div class="room-card">
+                                <a href="{{ url('room/details/' . $item->id) }}">
+                                    <img src="{{ asset('upload/roomimg/' . $item->image) }}" alt="Images"
+                                        style="width: 550px; height:300px;">
+                                </a>
+                                <div class="content">
+                                    <h6><a href="{{ url('room/details/' . $item->id) }}">{{ $item['type']['name'] }}</a></h6>
+                                    <ul>
+                                        <li class="text-color">${{ $item->price }}</li>
+                                        <li class="text-color">Per Night</li>
+                                    </ul>
+                                    <div class="rating text-color">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star-half'></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <?php array_push($empty_array, $item->id); ?>
+                    @endif
                 @endforeach
+
+                @if (count($rooms) == count($empty_array))
+                    <p class="text-center text-danger">Sorry No Data Found</p>
+                @endif
 
 
             </div>
