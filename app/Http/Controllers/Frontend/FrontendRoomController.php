@@ -8,7 +8,8 @@ use App\Models\BookArea;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use App\Models\Room;
-
+use App\Models\MultiImage;
+use App\Models\Facility;
 class FrontendRoomController extends Controller
 {
     public function AllFrontendRoomList()
@@ -19,8 +20,10 @@ class FrontendRoomController extends Controller
     } // End Method
     public function RoomDetailsPage($id)
     {
-
         $roomdetails = Room::find($id);
         return view('frontend.room.room_details', compact('roomdetails'));
-    } // End Method 
+        $multiImage = MultiImage::where('rooms_id', $id)->get();
+        $facility = Facility::where('rooms_id', $id)->get();
+        return view('frontend.room.room_details', compact('roomdetails', 'multiImage', 'facility'));
+    } // End Method
 }
