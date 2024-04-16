@@ -20,8 +20,10 @@
     <!-- Checkout Area -->
     <section class="checkout-area pt-100 pb-70">
         <div class="container">
+
             <form method="post" role="form" action="{{ route('checkout.store') }}">
                 @csrf
+
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="billing-details">
@@ -99,7 +101,7 @@
                                 </div>
 
 
-                                {{-- <p>Session Value : {{ json_encode(session('book_date')) }}</p> --}}
+                                <p>Session Value : {{ json_encode(session('book_date')) }}</p>
 
 
                             </div>
@@ -198,8 +200,8 @@
                                 </p>
 
                             </div>
-
                             <button type="submit" class="order-btn">Place to Order</button>
+
                         </div>
                     </div>
                 </div>
