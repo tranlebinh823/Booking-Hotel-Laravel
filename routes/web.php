@@ -25,14 +25,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
     Route::post('/password/change/password', [UserController::class, 'ChangePasswordStore'])->name('password.change.store');
-
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Admin Group Middleware
-Route::middleware(['auth','roles:admin'])->group(function(){
+Route::middleware(['auth', 'roles:admin'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
@@ -41,7 +39,6 @@ Route::middleware(['auth','roles:admin'])->group(function(){
 
     Route::get('/admin/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
     Route::post('/admin/password/update', [AdminController::class, 'AdminPasswordUpdate'])->name('admin.password.update');
-
 }); // End Admin Group Middleware
 
 
@@ -49,16 +46,13 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.
 
 
 // Admin Group Middleware
-Route::middleware(['auth','roles:admin'])->group(function(){
+Route::middleware(['auth', 'roles:admin'])->group(function () {
 
- /// Team All Route
-Route::controller(TeamController::class)->group(function(){
+    /// Team All Route
+    Route::controller(TeamController::class)->group(function () {
 
-    Route::get('/all/team', 'AllTeam')->name('all.team');
-
-});
-
-
+        Route::get('/all/team', 'AllTeam')->name('all.team');
+        Route::get('/add/team', 'AddTeam')->name('add.team');
+        Route::post('/team/store', 'StoreTeam')->name('team.store');
+    });
 }); // End Admin Group Middleware
-
-
