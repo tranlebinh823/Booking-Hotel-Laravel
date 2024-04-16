@@ -16,7 +16,7 @@
    </script>
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    <script src="{{ asset('backend/assets/js/code.js') }}"></script>
-   <script src="{{asset('backend/assets/js/validate.min.js')}}"></script>
+   <script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
    <script>
@@ -46,4 +46,14 @@
            $('#example').DataTable();
        });
    </script>
+
+   <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+   <script>
+       tinymce.init({
+           selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+           plugins: 'powerpaste advcode table lists checklist',
+           toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table'
+       });
+   </script>
+
    <!--datatable JS-->
