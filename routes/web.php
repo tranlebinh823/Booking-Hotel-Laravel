@@ -10,6 +10,9 @@ use App\Http\Controllers\Backend\RoomController;
 use App\Http\Controllers\Frontend\FrontendRoomController;
 
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', [UserController::class, 'Index']);
 
 
