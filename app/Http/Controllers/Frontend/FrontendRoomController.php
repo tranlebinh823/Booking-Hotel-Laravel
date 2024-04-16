@@ -12,6 +12,7 @@ use App\Models\MultiImage;
 use App\Models\Facility;
 use Carbon\CarbonPeriod;
 use App\Models\RoomBookedDate;
+
 class FrontendRoomController extends Controller
 {
     public function AllFrontendRoomList()
@@ -50,14 +51,24 @@ class FrontendRoomController extends Controller
         $d_period = CarbonPeriod::create($sdate, $alldate);
         $dt_array = [];
         foreach ($d_period as $period) {
-           array_push($dt_array, date('Y-m-d', strtotime($period)));
+            array_push($dt_array, date('Y-m-d', strtotime($period)));
         }
 
-        $check_date_booking_ids = RoomBookedDate::whereIn('book_date',$dt_array)->distinct()->pluck('booking_id')->toArray();
+        $check_date_booking_ids = RoomBookedDate::whereIn('book_date', $dt_array)->distinct()->pluck('booking_id')->toArray();
 
-        $rooms = Room::withCount('room_numbers')->where('status',1)->get();
+        $rooms = Room::withCount('room_numbers')->where('status', 1)->get();
 
-        return view('frontend.room.search_room',compact('rooms','check_date_booking_ids'));
+        return view('frontend.room.search_room', compact('rooms', 'check_date_booking_ids'));
     } // End Method
+    public function SearchRoomDetails(Request $request, $id)
+    {
+        $request->flash();
+        $roomdetails = Room::find($id);
+        $multiImage = MultiImage::where('rooms_id', $id)->get();
+        $facility = Facility::where('rooms_id', $id)->get();
 
+        $otherRooms = Room::where('id', '!=', $id)->orderBy('id', 'DESC')->limit(2)->get();
+        $room_id = $id;
+        return view('frontend.room.search_room_details', compact('roomdetails', 'multiImage', 'facility', 'otherRooms', 'room_id'));
+    } // End Method 
 }
