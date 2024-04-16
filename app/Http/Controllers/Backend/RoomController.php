@@ -9,7 +9,7 @@ use App\Models\Facility;
 use App\Models\MultiImage;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
-
+use App\Models\RoomNumber;
 class RoomController extends Controller
 {
     public function EditRoom($id){
