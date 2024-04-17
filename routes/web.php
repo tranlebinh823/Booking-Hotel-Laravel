@@ -91,6 +91,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 
         Route::get('/delete/room/{id}', 'DeleteRoom')->name('delete.room');
     });
+    /// Admin Booking All Route
+    Route::controller(BookingController::class)->group(function () {
+
+        Route::get('/booking/list', 'BookingList')->name('booking.list');
+    });
 }); // End Admin Group Middleware
 
 
@@ -115,6 +120,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/checkout/', 'Checkout')->name('checkout');
         Route::post('/booking/store/', 'BookingStore')->name('user_booking_store');
         Route::post('/checkout/store/', 'CheckoutStore')->name('checkout.store');
-        Route::match(['get', 'post'],'/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
+        Route::match(['get', 'post'], '/stripe_pay', [BookingController::class, 'stripe_pay'])->name('stripe_pay');
     });
 }); // End Group Auth Middleware
