@@ -129,5 +129,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Assign Room Route
         Route::get('/assign_room/{id}', 'AssignRoom')->name('assign_room');
+        Route::get('/assign_room/store/{booking_id}/{room_number_id}', 'AssignRoomStore')->name('assign_room_store');
+
     });
 }); // End Group Auth Middleware
