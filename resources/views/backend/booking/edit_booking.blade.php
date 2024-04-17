@@ -155,6 +155,13 @@
                 </div>
 
 
+    <div style="clear: both"></div>
+    <div style="margin-top: 40px; margin-bottom:20px;">
+    <a href="javascript::void(0)" class="btn btn-primary assign_room"> Assign Room</a>
+    </div>
+
+
+
 
                 </div>
                  {{-- // end table responsive --}}
@@ -228,7 +235,7 @@
                             <input type="number" required name="number_of_rooms" class="form-control" value="{{ $editData->number_of_rooms }}">
                         </div>
 
-                        <input type="hidden" name="available_room" id="available_room"  class="form-control"  >
+        <input type="hidden" name="available_room" id="available_room"  class="form-control"  >
 
                         <div class="col-md-12 mb-2">
      <label for="">Availability: <span class="text-success availability"></span> </label>
@@ -292,13 +299,43 @@
        </div>
     </div><!--end row-->
 
-
-
 </div>
+
+
+	<!-- Modal -->
+    <div class="modal fade myModal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rooms</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                     </div>
+
+            </div>
+        </div>
+    </div>
+<!-- Modal -->
+
 
 <script>
      $(document).ready(function (){
         getAvaility();
+
+        |$(".assign_room").on('click', function(){
+            $.ajax({
+                url: "{{ route('assign_room',$editData->id) }}",
+                success: function(data){
+                    $('.myModal .modal-body').html(data);
+                    $('.myModal').modal('show');
+                }
+            });
+            return false;
+        });
+
+
+
      });
 
     function getAvaility(){
