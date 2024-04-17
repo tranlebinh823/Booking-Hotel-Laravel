@@ -195,6 +195,21 @@ class BookingController extends Controller
         $editData = Booking::with('room')->find($id);
         return view('backend.booking.edit_booking',compact('editData'));
 
-    }// End Method 
+    }// End Method
+    public function UpdateBookingStatus(Request $request, $id){
+
+        $booking = Booking::find($id);
+        $booking->payment_status = $request->payment_status;
+        $booking->status = $request->status;
+        $booking->save();
+
+        $notification = array(
+            'message' => 'Information Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+
+     }   // End Method
 
 }
