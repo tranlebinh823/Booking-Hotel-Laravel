@@ -14,6 +14,7 @@ use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use App\Models\BookingRoomList;
 use App\Models\RoomNumber;
+use App\Models\RoomType;
 
 class RoomListController extends Controller
 {
@@ -45,7 +46,12 @@ class RoomListController extends Controller
     } // End Method
 
 
+    public function AddRoomList(){
 
+        $roomtype = RoomType::all();
+        return view('backend.allroom.roomlist.add_roomlist',compact('roomtype'));
+
+    }// End Method
 
 
 
