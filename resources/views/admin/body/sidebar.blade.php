@@ -35,6 +35,7 @@
 
             </ul>
         </li>
+
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -47,6 +48,7 @@
 
             </ul>
         </li>
+
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -59,6 +61,8 @@
 
             </ul>
         </li>
+
+
         <li class="menu-label">Booking Manage </li>
 
         <li>
@@ -84,6 +88,22 @@
             <ul>
                 <li> <a href="{{ route('view.room.list') }}"><i class='bx bx-radio-circle'></i>Room List</a>
                 </li>
+
+
+            </ul>
+        </li>
+
+
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
+                </div>
+                <div class="menu-title">Setting</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('smtp.setting') }}"><i class='bx bx-radio-circle'></i>SMTP Setting</a>
+                </li>
+
 
             </ul>
         </li>
