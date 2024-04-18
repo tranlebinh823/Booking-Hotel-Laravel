@@ -19,6 +19,7 @@ use Stripe;
 use App\Models\BookingRoomList;
 use App\Models\RoomNumber;
 use Barryvdh\DomPDF\Facade\Pdf;
+
 class BookingController extends Controller
 {
     public function Checkout()
@@ -324,12 +325,21 @@ class BookingController extends Controller
         ]);
         return $pdf->download('invoice.pdf');
     } // End Method
-    public function UserBooking(){
+    public function UserBooking()
+    {
         $id = Auth::user()->id;
-        $allData = Booking::where('user_id',$id)->orderBy('id','desc')->get();
-        return view('frontend.dashboard.user_booking',compact('allData'));
+        $allData = Booking::where('user_id', $id)->orderBy('id', 'desc')->get();
+        return view('frontend.dashboard.user_booking', compact('allData'));
+    } // End Method
+    public function UserInvoice($id)
+    {
 
-     }// End Method
-
+        $editData = Booking::with('room')->find($id);
+        $pdf = Pdf::loadView('backend.booking.booking_invoice', compact('editData'))->setPaper('a4')->setOption([
+            'tempDir' => public_path(),
+            'chroot' => public_path(),
+        ]);
+        return $pdf->download('invoice.pdf');
+    } // End Method 
 
 }
