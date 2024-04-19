@@ -139,7 +139,8 @@ Route::controller(TeamController::class)->group(function(){
  Route::controller(TestimonialController::class)->group(function(){
 
     Route::get('/all/testimonial', 'AllTestimonial')->name('all.testimonial');
-
+    Route::get('/add/testimonial', 'AddTestimonial')->name('add.testimonial');
+    Route::post('/store/testimonial', 'StoreTestimonial')->name('testimonial.store');
 });
 
 
@@ -190,4 +191,3 @@ Route::middleware(['auth'])->group(function(){
 
 }); // End Group Auth Middleware
 
-   
