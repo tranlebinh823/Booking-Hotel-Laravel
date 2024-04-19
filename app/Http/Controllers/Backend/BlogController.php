@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
+use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -35,13 +36,14 @@ class BlogController extends Controller
         $categories = BlogCategory::find($id);
         return response()->json($categories);
     } // End Method
-    public function UpdateBlogCategory(Request $request){
+    public function UpdateBlogCategory(Request $request)
+    {
 
         $cat_id = $request->cat_id;
 
         BlogCategory::find($cat_id)->update([
             'category_name' => $request->category_name,
-            'category_slug' => strtolower(str_replace(' ','-',$request->category_name)),
+            'category_slug' => strtolower(str_replace(' ', '-', $request->category_name)),
         ]);
 
         $notification = array(
@@ -50,11 +52,10 @@ class BlogController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    } // End Method
 
-
-    }// End Method
-
-    public function DeleteBlogCategory($id){
+    public function DeleteBlogCategory($id)
+    {
 
         BlogCategory::find($id)->delete();
 
@@ -64,7 +65,13 @@ class BlogController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    } // End Method
+    /////////// All Blog Post Methods////////////////////
 
-    }// End Method
+    public function AllBlogPost()
+    {
 
+        $post = BlogPost::latest()->get();
+        return view('backend.post.all_post', compact('post'));
+    } // End Method
 }
