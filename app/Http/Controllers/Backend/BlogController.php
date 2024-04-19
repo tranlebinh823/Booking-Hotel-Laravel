@@ -194,8 +194,9 @@ class BlogController extends Controller
     {
 
         $blog = BlogPost::where('post_slug', $slug)->first();
-
-        return view('frontend.blog.blog_details', compact('blog'));
+        $bcategory = BlogCategory::latest()->get();
+        $lpost = BlogPost::latest()->limit(3)->get();
+        return view('frontend.blog.blog_details', compact('blog', 'bcategory', 'lpost'));
     } // End Method
 
 }
