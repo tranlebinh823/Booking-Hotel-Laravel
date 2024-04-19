@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function StoreComment(Request $request){
+    public function StoreComment(Request $request)
+    {
 
         Comment::insert([
             'user_id' => $request->user_id,
@@ -28,9 +29,13 @@ class CommentController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    } // End Method
+    public function AllComment()
+    {
 
-    }// End Method
-
+        $allcomment = Comment::latest()->get();
+        return view('backend.comment.all_comment', compact('allcomment'));
+    } // End Method 
 
 
 
