@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use App\Models\SmtpSetting;
 
@@ -36,5 +37,10 @@ class SettingController extends Controller
 
         return redirect()->back()->with($notification);
     } // End Method
+    public function SiteSetting()
+    {
 
+        $site = SiteSetting::find(1);
+        return view('backend.site.site_update', compact('site'));
+    } // End Method
 }
