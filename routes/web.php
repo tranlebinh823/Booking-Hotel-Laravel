@@ -203,3 +203,8 @@ Route::controller(BlogController::class)->group(function () {
     Route::get('/blog/cat/list/{id}', 'BlogCatList');
     Route::get('/blog', 'BlogList')->name('blog.list');
 });
+/// Frontend Comment All Route
+Route::controller(CommentController::class)->group(function () {
+
+    Route::post('/store/comment/', 'StoreComment')->name('store.comment');
+});
