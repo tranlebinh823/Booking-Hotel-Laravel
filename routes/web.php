@@ -148,6 +148,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::controller(BlogController::class)->group(function () {
 
         Route::get('/all/blog/post', 'AllBlogPost')->name('all.blog.post');
+        Route::get('/add/blog/post', 'AddBlogPost')->name('add.blog.post');
     });
 }); // End Admin Group Middleware
 
