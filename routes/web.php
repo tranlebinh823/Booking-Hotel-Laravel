@@ -176,6 +176,7 @@ Route::controller(TeamController::class)->group(function(){
 /// Frontend Comment All Route
 Route::controller(CommentController::class)->group(function(){
     Route::get('/all/comment/', 'AllComment')->name('all.comment');
+    Route::post('/update/comment/status', 'UpdateCommentStatus')->name('update.comment.status');  
 
 });
 
