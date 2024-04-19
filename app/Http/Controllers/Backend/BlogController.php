@@ -8,10 +8,26 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function BlogCategory(){
+    public function BlogCategory()
+    {
 
         $category = BlogCategory::latest()->get();
-        return view('backend.category.blog_category',compact('category'));
+        return view('backend.category.blog_category', compact('category'));
+    } // End Method
+    public function StoreBlogCategory(Request $request)
+    {
 
-    }// End Method
+        BlogCategory::insert([
+            'category_name' => $request->category_name,
+            'category_slug' => strtolower(str_replace(' ', '-', $request->category_name)),
+        ]);
+
+        $notification = array(
+            'message' => 'BlogCategory Added Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    } // End Method
+
 }
