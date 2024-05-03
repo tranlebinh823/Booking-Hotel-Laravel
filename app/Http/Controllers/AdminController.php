@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class AdminController extends Controller
 {
     public function AdminDashboard()
@@ -39,6 +42,7 @@ class AdminController extends Controller
         return view('admin.admin_profile_view', compact('profileData'));
     } // End Method
 
+
     public function AdminProfileStore(Request $request)
     {
 
@@ -52,7 +56,7 @@ class AdminController extends Controller
         if ($request->file('photo')) {
             $file = $request->file('photo');
             @unlink(public_path('upload/admin_images/' . $data->photo));
-            $filename = date('YmdHi') . '-' . $file->getClientOriginalName();
+            $filename = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('upload/admin_images'), $filename);
             $data['photo'] = $filename;
         }
@@ -66,14 +70,17 @@ class AdminController extends Controller
         return redirect()->back()->with($notification);
     } // End Method
 
+
     public function AdminChangePassword()
     {
+
         $id = Auth::user()->id;
         $profileData = User::find($id);
         return view('admin.admin_change_password', compact('profileData'));
     } // End Method
 
-    public function AdminPasswordUpdate(Request $request){
+    public function AdminPasswordUpdate(Request $request)
+    {
 
         // Validation
         $request->validate([
@@ -81,7 +88,7 @@ class AdminController extends Controller
             'new_password' => 'required|confirmed'
         ]);
 
-        if(!Hash::check($request->old_password, auth::user()->password)){
+        if (!Hash::check($request->old_password, auth::user()->password)) {
 
             $notification = array(
                 'message' => 'Old Password Does not Match!',
@@ -89,7 +96,6 @@ class AdminController extends Controller
             );
 
             return back()->with($notification);
-
         }
 
         /// Update The New Password
@@ -103,8 +109,24 @@ class AdminController extends Controller
         );
 
         return back()->with($notification);
+    } // End Method
 
-    }// End Method
+
+    //////////// Admin User all Method//////////
+
+    public function AllAdmin()
+    {
+
+        $alladmin = User::where('role', 'admin')->get();
+        return view('backend.pages.admin.all_admin', compact('alladmin'));
+    } // End Method
+
+    public function AddAdmin()
+    {
+
+        $roles = Role::all();
+        return view('backend.pages.admin.add_admin', compact('roles'));
+    } // End Method
 
 
 
