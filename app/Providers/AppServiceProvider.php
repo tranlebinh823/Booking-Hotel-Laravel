@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
                 'encryption' => $smtpsetting->encryption,
                 'from' => [
                     'address' => $smtpsetting->from_address,
-                    'name' => 'Easyhotel'
+                    'name' => 'MoonHotel'
                 ]
               ];
               Config::set('mail',$data);

@@ -12,18 +12,20 @@ use App\Models\Room;
 
 class RoomTypeController extends Controller
 {
-    public function RoomTypeList(){
+    public function RoomTypeList()
+    {
 
-        $allData = RoomType::orderBy('id','desc')->get();
-        return view('backend.allroom.roomtype.view_roomtype',compact('allData'));
+        $allData = RoomType::orderBy('id', 'desc')->get();
+        return view('backend.allroom.roomtype.view_roomtype', compact('allData'));
+    } // End Method
 
-    }// End Method
-
-    public function AddRoomType(){
+    public function AddRoomType()
+    {
         return view('backend.allroom.roomtype.add_roomtype');
-    }// End Method
+    } // End Method
 
-    public function RoomTypeStore(Request $request){
+    public function RoomTypeStore(Request $request)
+    {
 
         $roomtype_id =  RoomType::insertGetId([
             'name' => $request->name,
@@ -40,9 +42,7 @@ class RoomTypeController extends Controller
         );
 
         return redirect()->route('room.type.list')->with($notification);
-
-    }// End Method
+    } // End Method
 
 
 }
- 
