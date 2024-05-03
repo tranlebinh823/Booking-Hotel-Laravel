@@ -219,15 +219,16 @@ class RoleController extends Controller
         $roles = Role::all();
         return view('backend.pages.rolesetup.all_roles_permission', compact('roles'));
     } // End Method
-    public function AdminEditRoles($id){
+    public function AdminEditRoles($id)
+    {
 
         $role = Role::find($id);
         $permissions = Permission::all();
         $permission_groups = User::getpermissionGroups();
-        return view('backend.pages.rolesetup.edit_roles_permission',compact('role','permissions','permission_groups'));
-
-    }// End Method
-    public function AdminRolesUpdate(Request $request,$id){
+        return view('backend.pages.rolesetup.edit_roles_permission', compact('role', 'permissions', 'permission_groups'));
+    } // End Method
+    public function AdminRolesUpdate(Request $request, $id)
+    {
 
         $role = Role::find($id);
         $permissions = $request->permission;
@@ -242,8 +243,21 @@ class RoleController extends Controller
         );
 
         return redirect()->route('all.roles.permission')->with($notification);
+    } // End Method
+    public function AdminDeleteRoles($id)
+    {
 
-    }// End Method
+        $role = Role::find($id);
+        if (!is_null($role)) {
+            $role->delete();
+        }
 
+        $notification = array(
+            'message' => 'Role Permission Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    } // End Method
 
 }
