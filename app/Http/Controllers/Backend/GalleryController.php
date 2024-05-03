@@ -117,5 +117,8 @@ class GalleryController extends Controller
         return view('frontend.gallery.show_gallery',compact('gallery'));
      }// End Method
 
+     public function ContactUs(){
 
+        return view('frontend.contact.contact_us');
+     }// End Method
 }
