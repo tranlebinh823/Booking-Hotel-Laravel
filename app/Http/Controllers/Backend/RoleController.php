@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Exports\PermissionExport;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PermissionImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\User;
+
 class RoleController extends Controller
 {
     public function AllPermission()
@@ -16,12 +18,16 @@ class RoleController extends Controller
         $permissions = Permission::latest()->get();
         return view('backend.pages.permission.all_permission', compact('permissions'));
     } // End Method
+
+
     public function AddPermission()
     {
 
         return view('backend.pages.permission.add_permission');
     } // End Method
-    public function StorePermission(Request $request){
+
+    public function StorePermission(Request $request)
+    {
 
         $permission = Permission::create([
             'name' => $request->name,
@@ -34,17 +40,19 @@ class RoleController extends Controller
         );
 
         return redirect()->route('all.permission')->with($notification);
-
     } // End Method
-    public function EditPermission($id){
+
+
+    public function EditPermission($id)
+    {
 
         $permission = Permission::find($id);
-        return view('backend.pages.permission.edit_permission',compact('permission'));
+        return view('backend.pages.permission.edit_permission', compact('permission'));
+    } // End Method
 
-    }// End Method
 
-
-    public function UpdatePermission(Request $request){
+    public function UpdatePermission(Request $request)
+    {
         $per_id = $request->id;
 
         Permission::find($per_id)->update([
@@ -58,11 +66,11 @@ class RoleController extends Controller
         );
 
         return redirect()->route('all.permission')->with($notification);
-
     } // End Method
 
 
-    public function DeletePermission($id){
+    public function DeletePermission($id)
+    {
 
         Permission::find($id)->delete();
 
@@ -72,19 +80,25 @@ class RoleController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    } // End Method
 
-    }// End Method
-    public function ImportPermission(){
+
+    public function ImportPermission()
+    {
 
         return view('backend.pages.permission.import_permission');
+    } // End Method
 
-    }// End Method
-    public function Export(){
+
+    public function Export()
+    {
 
         return Excel::download(new PermissionExport, 'permission.xlsx');
+    } // End Method
 
-    }// End Method
-    public function Import(Request $request){
+
+    public function Import(Request $request)
+    {
 
         Excel::import(new PermissionImport, $request->file('import_file'));
 
@@ -94,23 +108,26 @@ class RoleController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    } // End Method
 
-    }// End Method
-          // TODO  All Roles Mehtod
 
-      public function AllRoles(){
+    /////////// All Roles Mehtod //////////////////////
+
+    public function AllRoles()
+    {
 
         $roles = Role::latest()->get();
-        return view('backend.pages.roles.all_roles',compact('roles'));
+        return view('backend.pages.roles.all_roles', compact('roles'));
+    } // End Method
 
-    }// End Method
 
-
-    public function AddRoles(){
+    public function AddRoles()
+    {
         return view('backend.pages.roles.add_roles');
-    }// End Method
+    } // End Method
 
-    public function StoreRoles(Request $request){
+    public function StoreRoles(Request $request)
+    {
 
         Role::create([
             'name' => $request->name,
@@ -122,17 +139,19 @@ class RoleController extends Controller
         );
 
         return redirect()->route('all.roles')->with($notification);
+    } // End Method
 
-    }// End Method
-    public function EditRoles($id){
+
+    public function EditRoles($id)
+    {
 
         $roles = Role::find($id);
-        return view('backend.pages.roles.edit_roles',compact('roles'));
+        return view('backend.pages.roles.edit_roles', compact('roles'));
+    } // End Method
 
-    }// End Method
 
-
-    public function UpdateRoles(Request $request){
+    public function UpdateRoles(Request $request)
+    {
 
         $role_id = $request->id;
 
@@ -146,10 +165,10 @@ class RoleController extends Controller
         );
 
         return redirect()->route('all.roles')->with($notification);
+    } // End Method
 
-    }// End Method
-
-    public function DeleteRoles($id){
+    public function DeleteRoles($id)
+    {
 
         Role::find($id)->delete();
 
@@ -159,15 +178,25 @@ class RoleController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    } // End Method
 
-    }// End Method
-    public function AddRolesPermission(){
+
+
+
+    public function AddRolesPermission()
+    {
 
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('backend.pages.rolesetup.add_roles_permission',compact('roles','permissions'));
+        $permission_groups = User::getpermissionGroups();
+        return view('backend.pages.rolesetup.add_roles_permission', compact('roles', 'permissions', 'permission_groups'));
+    } // End Method
 
-    }// End Method
+
+
+
+
+
 
 
 }
