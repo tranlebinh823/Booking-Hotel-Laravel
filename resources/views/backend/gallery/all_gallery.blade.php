@@ -28,34 +28,44 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Sl</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($gallery as $key => $item)
+
+                    <form action="{{ route('delete.gallery.multiple') }}" method="POST">
+                        @csrf
+
+                        <table class="table table-striped table-bordered" style="width:100%">
+                            <thead>
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td> <img src="{{ asset($item->photo_name) }}" alt=""
-                                            style="width:70px; height:40px;"> </td>
-
-                                    <td>
-                                        <a href="{{ route('edit.gallery', $item->id) }}"
-                                            class="btn btn-warning px-3 radius-30"> Edit</a>
-                                        <a href="{{ route('delete.gallery', $item->id) }}"
-                                            class="btn btn-danger px-3 radius-30" id="delete"> Delete</a>
-
-                                    </td>
+                                    <th width="50px">Select</th>
+                                    <th width="50px">Sl</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
                                 </tr>
-                            @endforeach
+                            </thead>
+                            <tbody>
+                                @foreach ($gallery as $key => $item)
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" name="selectedItem[]" value="{{ $item->id }}">
+                                        </td>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td> <img src="{{ asset($item->photo_name) }}" alt=""
+                                                style="width:70px; height:40px;"> </td>
 
-                        </tbody>
+                                        <td>
+                                            <a href="{{ route('edit.gallery', $item->id) }}"
+                                                class="btn btn-warning px-3 radius-30"> Edit</a>
+                                            <a href="{{ route('delete.gallery', $item->id) }}"
+                                                class="btn btn-danger px-3 radius-30" id="delete"> Delete</a>
 
-                    </table>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+                        <button type="submit" class="btn btn-danger">Delete Selected</button>
+                    </form>
                 </div>
             </div>
         </div>
