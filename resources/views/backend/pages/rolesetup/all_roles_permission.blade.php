@@ -53,8 +53,7 @@
 
 
                                     <td>
-                                        <a href="{{ route('edit.roles', $item->id) }}"
-                                            class="btn btn-warning px-3 radius-30"> Edit</a>
+                                        <a href="{{ route('admin.edit.roles',$item->id) }}" class="btn btn-warning px-3 radius-30"> Edit</a>
                                         <a href="{{ route('delete.roles', $item->id) }}"
                                             class="btn btn-danger px-3 radius-30" id="delete"> Delete</a>
 
