@@ -190,7 +190,6 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::post('/update/gallery', 'UpdateGallery')->name('update.gallery');
         Route::get('/delete/gallery/{id}', 'DeleteGallery')->name('delete.gallery');
         Route::post('/delete/gallery/multiple', 'DeleteGalleryMultiple')->name('delete.gallery.multiple');
-
     });
 }); // End Admin Group Middleware
 
@@ -246,4 +245,9 @@ Route::controller(BlogController::class)->group(function () {
 Route::controller(CommentController::class)->group(function () {
 
     Route::post('/store/comment/', 'StoreComment')->name('store.comment');
+});
+/// Frontend Gallery All Route
+Route::controller(GalleryController::class)->group(function () {
+
+    Route::get('/gallery', 'ShowGallery')->name('show.gallery');
 });
