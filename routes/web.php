@@ -186,8 +186,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
         Route::get('/all/gallery', 'AllGallery')->name('all.gallery');
         Route::get('/add/gallery', 'AddGallery')->name('add.gallery');
         Route::post('/store/gallery', 'StoreGallery')->name('store.gallery');
-
-
+        Route::get('/edit/gallery/{id}', 'EditGallery')->name('edit.gallery');
+        Route::post('/update/gallery', 'UpdateGallery')->name('update.gallery');
+        Route::get('/delete/gallery/{id}', 'DeleteGallery')->name('delete.gallery');
     });
 }); // End Admin Group Middleware
 
@@ -224,7 +225,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/assign_room/store/{booking_id}/{room_number_id}', 'AssignRoomStore')->name('assign_room_store');
         Route::get('/assign_room_delete/{id}', 'AssignRoomDelete')->name('assign_room_delete');
 
-        ////////// User Booking Route
+        // User Booking Route
 
         Route::get('/user/booking', 'UserBooking')->name('user.booking');
         Route::get('/user/invoice/{id}', 'UserInvoice')->name('user.invoice');
