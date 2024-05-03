@@ -193,7 +193,8 @@ class RoleController extends Controller
         return view('backend.pages.rolesetup.add_roles_permission', compact('roles', 'permissions', 'permission_groups'));
     } // End Method
 
-    public function RolePermissionStore(Request $request){
+    public function RolePermissionStore(Request $request)
+    {
 
         $data = array();
         $permissions = $request->permission;
@@ -210,10 +211,14 @@ class RoleController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->back()->with($notification);
+        return redirect()->route('all.roles.permission')->with($notification);
+    } // End Method
+    public function AllRolesPermission()
+    {
 
-    }// End Method
-
+        $roles = Role::all();
+        return view('backend.pages.rolesetup.all_roles_permission', compact('roles'));
+    } // End Method
 
 
 }
