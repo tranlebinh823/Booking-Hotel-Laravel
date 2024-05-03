@@ -16,7 +16,14 @@
             <div class="ms-auto">
                 <div class="btn-group">
                     <a href="{{ route('add.permission') }}" class="btn btn-primary px-5">Add Permission </a>
+                </div>
 
+                <div class="btn-group">
+                    <a href="{{ route('import.permission') }}" class="btn btn-warning px-5">Import </a>
+                </div>
+
+                <div class="btn-group">
+                    <a href="{{ route('add.permission') }}" class="btn btn-danger px-5">Export </a>
                 </div>
             </div>
         </div>
@@ -48,6 +55,7 @@
                                             class="btn btn-warning px-3 radius-30"> Edit</a>
                                         <a href="{{ route('delete.permission', $item->id) }}"
                                             class="btn btn-danger px-3 radius-30" id="delete"> Delete</a>
+
                                     </td>
                                 </tr>
                             @endforeach
